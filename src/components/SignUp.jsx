@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { login } from "../store/authSlice";
-
+import { Link } from "react-router-dom";
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
