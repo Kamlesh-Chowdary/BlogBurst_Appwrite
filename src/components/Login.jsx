@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Logo, Button, Input } from "./index";
 import { login } from "../store/authSlice";
-import { authService } from "../appwrite/auth";
+import authService from "../appwrite/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -47,7 +47,7 @@ const Login = () => {
           </Link>
         </p>
         {errors && <p className="text-red-600 mt-8 text-center">{errors}</p>}
-        <form onSubmit={handleSubmit(login)} className="mt-8">
+        <form onSubmit={handleSubmit(handleLogin)} className="mt-8">
           <div className="space-y-5">
             <Input
               label="Email: "
