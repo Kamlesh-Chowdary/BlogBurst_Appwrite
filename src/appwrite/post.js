@@ -1,4 +1,4 @@
-import conf from "../conf";
+import conf from "../conf/conf";
 import { Client, Databases, Query } from "appwrite";
 
 export class PostService {
@@ -90,6 +90,6 @@ export class PostService {
   }
 }
 
-const postService = new Service();
+const postService = new PostService();
 
 export default postService;
