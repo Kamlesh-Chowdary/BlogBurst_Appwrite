@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import {
-  BrowserRouter,
+  Routes,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -20,54 +20,118 @@ import { AuthLayout } from "./components/index.js";
 import Signup from "./Pages/Signup.jsx";
 import Post from "./Pages/Post.jsx";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/all-posts"
-        element={
-          <AuthLayout isAuthenticated>
-            <AllPosts />
-          </AuthLayout>
-        }
-      />
-      <Route
-        path="/add-post"
-        element={
-          <AuthLayout isAuthenticated>
-            <AddPost />
-          </AuthLayout>
-        }
-      />
-      <Route
-        path="/edit-post/:slug"
-        element={
-          <AuthLayout isAuthenticated>
-            <EditPost />
-          </AuthLayout>
-        }
-      />
-      <Route path="/post/:slug" element={<Post />} />
-      <Route
-        path="/login"
-        element={
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
+        element: (
           <AuthLayout isAuthenticated={false}>
             <Login />
           </AuthLayout>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
+        ),
+      },
+      {
+        path: "/signup",
+        element: (
           <AuthLayout isAuthenticated={false}>
             <Signup />
           </AuthLayout>
-        }
-      />
-    </Route>
-  )
-);
+        ),
+      },
+      {
+        path: "/all-posts",
+        element: (
+          <AuthLayout isAuthenticated>
+            {" "}
+            <AllPosts />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/add-post",
+        element: (
+          <AuthLayout isAuthenticated>
+            {" "}
+            <AddPost />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/edit-post/:slug",
+        element: (
+          <AuthLayout isAuthenticated>
+            {" "}
+            <EditPost />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/post/:slug",
+        element: <Post />,
+      },
+    ],
+  },
+]);
+
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route path="/" element={<App />}>
+//       <Route path="/" element={<Home />} />
+
+//       <Route
+//         path="/all-posts"
+//         element={
+//           <AuthLayout isAuthenticated>
+//             <AllPosts />
+//           </AuthLayout>
+//         }
+//       >
+//         <Route path="/post/:slug" element={<Post />} />
+//       </Route>
+
+//       <Route
+//         path="/add-post"
+//         element={
+//           <AuthLayout isAuthenticated>
+//             <AddPost />
+//           </AuthLayout>
+//         }
+//       />
+//       <Route
+//         path="/signup"
+//         element={
+//           <AuthLayout isAuthenticated={false}>
+//             <Signup />
+//           </AuthLayout>
+//         }
+//       />
+//       <Route
+//         path="/edit-post/:slug"
+//         element={
+//           <AuthLayout isAuthenticated>
+//             <EditPost />
+//           </AuthLayout>
+//         }
+//       />
+//       <Route path="/post/:slug" element={<Post />} />
+//       <Route
+//         path="/login"
+//         element={
+//           <AuthLayout isAuthenticated={false}>
+//             <Login />
+//           </AuthLayout>
+//         }
+//       />
+//     </Route>
+//   )
+// );
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
