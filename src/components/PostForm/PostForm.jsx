@@ -5,23 +5,18 @@ import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, RTE, Input, Select } from "../index";
-const PostForm = (post) => {
-  const { register, handleSubmit, control, watch, setValue, getValues } =
-    useForm({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.slug || "",
-        content: post?.content || "",
-        status: post?.status || "active",
-      },
-    });
-  const userData = useSelector((state) => state.userData);
+const PostForm = ({ post }) => {
+  const { register, handleSubmit, watch, setValue, reset, control, getValues } =
+    useForm();
   const navigate = useNavigate();
+  const userData = useSelector((state) => state.userData);
+
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
         ? await storageService.uploadFile(data.image[0])
         : null;
+
       if (file) {
         storageService.deleteFile(post.featuredImage);
       }
@@ -30,6 +25,7 @@ const PostForm = (post) => {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
+
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
@@ -38,9 +34,10 @@ const PostForm = (post) => {
         ? await storageService.uploadFile(data.image[0])
         : null;
       if (file) {
+        const fileId = file.$id;
+        data.featuredImage = fileId;
         const dbPost = await postService.createPost({
           ...data,
-          featuredImage: file.$id,
           userId: userData.$id,
         });
 
@@ -62,11 +59,20 @@ const PostForm = (post) => {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      reset({
+        title: post?.title || "",
+        slug: post?.$id || "",
+        content: post?.content || "",
+        status: post?.status || "active",
+      });
+    }, 2000);
     const subscription = watch((value, { name }) => {
       if (name === "title") {
         setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
   return (
@@ -82,7 +88,7 @@ const PostForm = (post) => {
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
-          {...register("title", { required: true })}
+          {...register("slug", { required: true })}
           onInput={(e) =>
             setValue("slug", slugTransform(e.currentTarget.value), {
               shouldValidate: true,

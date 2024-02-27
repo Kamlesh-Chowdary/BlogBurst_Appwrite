@@ -64,7 +64,7 @@ const Header = () => {
             )}
             {authStatus && (
               <NavLink
-                to={"logout"}
+                to={"/login"}
                 className={({ isActive }) =>
                   `${isActive ? "text-white hover:text-black" : "text-black "}`
                 }
