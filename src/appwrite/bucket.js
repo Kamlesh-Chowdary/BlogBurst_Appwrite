@@ -9,6 +9,7 @@ export class StorageService {
     this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
+    // this.databases = new Databases(this.client);
     this.bucket = new Storage(this.client);
   }
 
@@ -44,7 +45,7 @@ export class StorageService {
 
   getFilePreview(fileId) {
     try {
-      this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     } catch (error) {
       console.log("Appwrite :: getFilePreview :: error", error);
     }
