@@ -5,7 +5,7 @@ export class PostService {
   client = new Client();
   databases;
 
-  contructor() {
+  constructor() {
     this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
@@ -21,7 +21,6 @@ export class PostService {
         slug,
         {
           title,
-          slug,
           content,
           featuredImage,
           status,
@@ -29,7 +28,7 @@ export class PostService {
         }
       );
     } catch (error) {
-      console.log("Appwrite :: createPost :: error", error);
+      console.log("Appwrite serive :: createPost :: error", error);
     }
   }
 
