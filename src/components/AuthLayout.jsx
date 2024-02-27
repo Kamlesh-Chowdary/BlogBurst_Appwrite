@@ -7,12 +7,10 @@ const AuthLayout = ({ children, isAuthenticated = true }) => {
   const authStatus = useSelector((state) => state.status);
 
   useEffect(() => {
-    if (isAuthenticated && authStatus) {
+    if (isAuthenticated && authStatus !== isAuthenticated) {
+      navigate("/login");
+    } else if (!isAuthenticated && authStatus !== isAuthenticated) {
       navigate("/");
-    } else if (!isAuthenticated && !authStatus) {
-      navigate("/login");
-    } else {
-      navigate("/login");
     }
     setLoading(false);
   }, [authStatus, navigate, isAuthenticated]);
