@@ -12,13 +12,14 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
-import AllPosts from "./Pages/AllPosts.jsx";
+
 import AddPost from "./Pages/AddPost.jsx";
 import EditPost from "./Pages/EditPost.jsx";
 import Login from "./Pages/Login.jsx";
 import { AuthLayout } from "./components/index.js";
 import Signup from "./Pages/Signup.jsx";
 import Post from "./Pages/Post.jsx";
+import UsersPosts from "./Pages/UsersPosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout isAuthenticated>
             {" "}
-            <AllPosts />
+            <UsersPosts />
           </AuthLayout>
         ),
       },
