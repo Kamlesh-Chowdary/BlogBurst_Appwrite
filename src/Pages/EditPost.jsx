@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const EditPost = () => {
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { slug } = useParams();
 
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const EditPost = () => {
       postService.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
+          setLoading(false);
+        } else {
+          setLoading(false);
         }
       });
     } else {
@@ -20,13 +24,25 @@ const EditPost = () => {
     }
   }, [slug, navigate]);
 
-  return (
-    <div className="py-8">
-      <Container>
-        <PostForm post={post} />
-      </Container>
-    </div>
-  );
+  if (!loading) {
+    if (post) {
+      return (
+        <div className="py-8">
+          <Container className="w-5xl">
+            <PostForm post={post} />
+          </Container>
+        </div>
+      );
+    }
+  } else {
+    return (
+      <div className="py-8">
+        <Container>
+          <h1>Loading...</h1>
+        </Container>
+      </div>
+    );
+  }
 };
 
 export default EditPost;
