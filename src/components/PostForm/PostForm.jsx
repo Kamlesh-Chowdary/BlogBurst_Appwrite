@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import storageService from "../../appwrite/bucket";
 import postService from "../../appwrite/post";
@@ -6,8 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, RTE, Input, Select } from "../index";
 const PostForm = ({ post }) => {
-  const { register, handleSubmit, watch, setValue, reset, control, getValues } =
-    useForm();
+  const { register, handleSubmit, watch, setValue, control, getValues } =
+    useForm({
+      defaultValues: {
+        title: post?.title || "",
+        slug: post?.$id || "",
+        content: post?.content || "",
+        status: post?.status || "active",
+      },
+    });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData);
 
@@ -18,7 +26,11 @@ const PostForm = ({ post }) => {
         : null;
 
       if (file) {
-        storageService.deleteFile(post.featuredImage);
+        try {
+          storageService.deleteFile(post.featuredImage);
+        } catch (error) {
+          setError(error.message);
+        }
       }
 
       const dbPost = await postService.updatePost(post.$id, {
@@ -39,6 +51,7 @@ const PostForm = ({ post }) => {
         const dbPost = await postService.createPost({
           ...data,
           userId: userData.$id,
+          userName: userData.name,
         });
 
         if (dbPost) {
@@ -59,14 +72,6 @@ const PostForm = ({ post }) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      reset({
-        title: post?.title || "",
-        slug: post?.$id || "",
-        content: post?.content || "",
-        status: post?.status || "active",
-      });
-    }, 2000);
     const subscription = watch((value, { name }) => {
       if (name === "title") {
         setValue("slug", slugTransform(value.title), { shouldValidate: true });

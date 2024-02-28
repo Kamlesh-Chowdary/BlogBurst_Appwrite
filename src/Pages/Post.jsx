@@ -34,13 +34,14 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="py-8">
+    <div className="py-8 max-w-5xl m-auto border rounded-xl  my-8">
+      <h1 className="text-xl text-gray-600 px-4">Author : {post.userName}</h1>
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+        <div className="w-full  flex justify-center mb-4 relative   p-2">
           <img
             src={storageService.getFilePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl"
+            className="rounded-xl max-w-md m-auto"
           />
 
           {isAuthor && (
@@ -57,7 +58,7 @@ export default function Post() {
           )}
         </div>
         <div className="w-full mb-6">
-          <h1 className="text-2xl font-bold">{post.title}</h1>
+          <h1 className="text-2xl font-bold text-center">{post.title}</h1>
         </div>
         <div className="browser-css">{parse(post.content)}</div>
       </Container>
