@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import storageService from "../../appwrite/bucket";
 import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, RTE, Input, Select } from "../index";
+import { addPost, updatePost } from "../../store/postSlice";
 const PostForm = ({ post }) => {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
@@ -18,6 +19,7 @@ const PostForm = ({ post }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
 
   const submit = async (data) => {
     if (post) {
@@ -26,6 +28,7 @@ const PostForm = ({ post }) => {
         : null;
 
       if (file) {
+        setError("");
         try {
           storageService.deleteFile(post.featuredImage);
         } catch (error) {
@@ -39,6 +42,7 @@ const PostForm = ({ post }) => {
       });
 
       if (dbPost) {
+        dispatch(updatePost(dbPost));
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
@@ -55,6 +59,7 @@ const PostForm = ({ post }) => {
         });
 
         if (dbPost) {
+          dispatch(addPost(dbPost));
           navigate(`/post/${dbPost.$id}`);
         }
       }
@@ -83,6 +88,7 @@ const PostForm = ({ post }) => {
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
+        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         <Input
           label="Title :"
           className="mb-4"

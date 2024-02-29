@@ -4,29 +4,31 @@ import storageService from "../appwrite/bucket";
 import postService from "../appwrite/post";
 import { Button, Container } from "../components/index";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost as deletePostSlice } from "../store/postSlice";
 export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+  const allPosts = useSelector((state) => state.post.posts);
   useEffect(() => {
     if (slug) {
-      postService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
-      });
+      if (allPosts)
+        allPosts.map((post) => (slug === post.$id ? setPost(post) : null));
+      else navigate("/");
     } else navigate("/");
   }, [slug, navigate]);
 
   const deletePost = () => {
     postService.deletePost(post.$id).then((status) => {
       if (status) {
+        dispatch(deletePostSlice(post.$id));
         storageService.deleteFile(post.featuredImage);
         navigate("/");
       }
