@@ -26,7 +26,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [loading, dispatch]);
 
   return !loading ? (
     <div className="min-h-screen flex flex-wrap content-between bg-gray-300 font-rubik">

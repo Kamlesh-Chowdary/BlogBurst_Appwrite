@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, PostCard } from "../components/index";
+import { Container, PostCard, Button } from "../components/index";
 import postService from "../appwrite/post";
 import { Query } from "appwrite";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const UsersPosts = () => {
   const [posts, setPosts] = useState([]);
   const userData = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate();
   useEffect(() => {
     postService
       .getPosts([Query.equal("userId", userData.$id)])
@@ -19,9 +21,15 @@ const UsersPosts = () => {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
-          <h1 className="text-2xl font-bold hover:text-gray-500">
+          <h1 className="text-2xl font-bold ">
             Looks like there are no blogs yet. Why not create one?
           </h1>
+          <Button
+            className="hover:bg-blue-800 mt-5"
+            onClick={() => navigate("/add-post")}
+          >
+            Add Blog
+          </Button>
         </Container>
       </div>
     );

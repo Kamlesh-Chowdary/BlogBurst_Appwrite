@@ -36,7 +36,7 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="py-8 max-w-5xl m-auto border rounded-xl  my-8">
+    <div className="py-8 max-w-5xl m-auto rounded-xl  mx-8">
       <h1 className="text-xl text-gray-600 px-4">Author : {post.userName}</h1>
       <Container>
         <div className="w-full  flex justify-center mb-4 relative   p-2">

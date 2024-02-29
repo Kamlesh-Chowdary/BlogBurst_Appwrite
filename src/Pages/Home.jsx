@@ -10,9 +10,7 @@ function Home() {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
-          <h1 className="text-2xl font-bold hover:text-gray-500">
-            Login to read blogs!
-          </h1>
+          <h1 className="text-2xl font-bold ">Login to read blogs!</h1>
           <Button
             className="hover:bg-blue-800 mt-5"
             onClick={() => navigate("login")}
@@ -23,11 +21,11 @@ function Home() {
       </div>
     );
   }
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
-          <h1 className="text-2xl font-bold hover:text-gray-500">
+          <h1 className="text-2xl font-bold ">
             Looks like there are no blogs yet. Why not create one?
           </h1>
         </Container>
