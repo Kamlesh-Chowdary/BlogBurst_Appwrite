@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
-  const userData = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.auth.userData);
   useEffect(() => {
     postService.getPosts().then((posts) => {
       if (posts) {
@@ -47,9 +47,12 @@ function Home() {
   return (
     <div className="w-full py-8">
       <Container>
-        <div className="grid sm:grid-cols-4">
+        <div className="grid sm:flex sm:flex-wrap">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 mx-auto text-center">
+            <div
+              key={post.$id}
+              className="p-2 mx-auto text-center sm:w-1/4 sm:m-0"
+            >
               <PostCard {...post} />
             </div>
           ))}

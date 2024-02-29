@@ -5,7 +5,7 @@ import { Query } from "appwrite";
 import { useSelector } from "react-redux";
 const UsersPosts = () => {
   const [posts, setPosts] = useState([]);
-  const userData = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.auth.userData);
   useEffect(() => {
     postService
       .getPosts([Query.equal("userId", userData.$id)])

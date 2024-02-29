@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const AuthLayout = ({ children, isAuthenticated = true }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const authStatus = useSelector((state) => state.status);
+  const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
     if (isAuthenticated && authStatus !== isAuthenticated) {
