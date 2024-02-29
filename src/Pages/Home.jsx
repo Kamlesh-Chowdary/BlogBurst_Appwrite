@@ -1,10 +1,11 @@
-import { Container, PostCard } from "../components/index";
+import { useNavigate } from "react-router-dom";
+import { Button, Container, PostCard } from "../components/index";
 import { useSelector } from "react-redux";
 
 function Home() {
   const posts = useSelector((state) => state.post.posts);
   const userData = useSelector((state) => state.auth.userData);
-
+  const navigate = useNavigate();
   if (!userData) {
     return (
       <div className="w-full py-8 mt-4 text-center">
@@ -12,6 +13,12 @@ function Home() {
           <h1 className="text-2xl font-bold hover:text-gray-500">
             Login to read blogs!
           </h1>
+          <Button
+            className="hover:bg-blue-800 mt-5"
+            onClick={() => navigate("login")}
+          >
+            Login
+          </Button>
         </Container>
       </div>
     );
