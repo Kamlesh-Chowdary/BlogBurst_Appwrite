@@ -47,9 +47,9 @@ function Home() {
   return (
     <div className="w-full py-8">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="grid sm:grid-cols-4">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
+            <div key={post.$id} className="p-2 mx-auto text-center">
               <PostCard {...post} />
             </div>
           ))}
