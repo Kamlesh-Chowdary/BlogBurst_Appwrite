@@ -15,10 +15,10 @@ const App = () => {
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(login({ userData }));
           postService.getPosts().then((data) => {
             if (data) dispatch(setPost(data.documents));
           });
+          dispatch(login({ userData }));
         } else {
           dispatch(logout());
         }
@@ -29,7 +29,7 @@ const App = () => {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400 font-rubik">
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-300 font-rubik">
       <div className="w-full block">
         <Header />
         <main>

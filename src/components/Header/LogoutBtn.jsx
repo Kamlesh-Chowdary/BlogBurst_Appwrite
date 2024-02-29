@@ -11,7 +11,7 @@ const LogoutBtn = () => {
         dispatch(logout());
       })
       .catch((error) => {
-        console.log("error hogaya bhai", error);
+        throw error;
       });
   };
   return (

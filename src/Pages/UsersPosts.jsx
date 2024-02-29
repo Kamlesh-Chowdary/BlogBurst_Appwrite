@@ -29,9 +29,12 @@ const UsersPosts = () => {
   return (
     <div className="w-full py-8">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="grid sm:flex sm:flex-wrap">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
+            <div
+              key={post.$id}
+              className="p-2 mx-auto text-center sm:w-1/4 sm:m-0"
+            >
               <PostCard {...post} />
             </div>
           ))}
