@@ -8,15 +8,10 @@ const UsersPosts = () => {
   const [posts, setPosts] = useState([]);
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
+  const allposts = useSelector((state) => state.post.posts);
   useEffect(() => {
-    postService
-      .getPosts([Query.equal("userId", userData.$id)])
-      .then((posts) => {
-        if (posts) {
-          setPosts(posts.documents);
-        }
-      });
-  }, []);
+    setPosts(allposts.filter((post) => post.userId === userData.$id));
+  }, [allposts]);
   if (posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">

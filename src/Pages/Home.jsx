@@ -1,13 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Container, PostCard } from "../components/index";
-import { useSelector } from "react-redux";
-import { setLoading } from "../store/postSlice";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { setPost } from "../store/postSlice";
+import postService from "../appwrite/post";
 function Home() {
-  const loading = useSelector((state) => state.post.loading);
+  const [loading, setLoading] = useState(true);
   const posts = useSelector((state) => state.post.posts);
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const posts = await postService.getPosts();
+        if (posts) {
+          dispatch(setPost(posts.documents));
+        }
+      } catch (error) {
+        console.log("posts :: getPosts :: ", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   if (!userData) {
     return (
@@ -25,10 +42,7 @@ function Home() {
     );
   }
 
-  if (loading) {
-    return <div className="bg-neutral-800">loading..</div>;
-  }
-  return (
+  return !loading ? (
     <div className="w-full py-8">
       <Container>
         <div className="grid sm:flex sm:flex-wrap">
@@ -43,7 +57,7 @@ function Home() {
         </div>
       </Container>
     </div>
-  );
+  ) : null;
 }
 
 export default Home;
