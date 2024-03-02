@@ -82,7 +82,7 @@ const Header = () => {
           </div>
         </nav>
         {isNavbarVisible && (
-          <ul className="flex justify-around mt-3">
+          <ul className="flex justify-around mt-3 sm:hidden">
             {navItems.map((item) =>
               item.active ? (
                 <NavLink
