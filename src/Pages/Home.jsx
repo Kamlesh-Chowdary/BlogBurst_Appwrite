@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { Button, Container, PostCard } from "../components/index";
+import {
+  Button,
+  Container,
+  LoadingComponent,
+  PostCard,
+} from "../components/index";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setPost } from "../store/postSlice";
@@ -57,7 +62,9 @@ function Home() {
         </div>
       </Container>
     </div>
-  ) : null;
+  ) : (
+    <LoadingComponent />
+  );
 }
 
 export default Home;

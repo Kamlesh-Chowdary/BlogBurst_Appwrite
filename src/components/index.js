@@ -12,7 +12,7 @@ import PostCard from "./PostCard";
 import Input from "./Input";
 import Select from "./Select";
 import AuthLayout from "./AuthLayout";
-
+import LoadingComponent from "./LoadingComponent";
 export {
   Container,
   Footer,
@@ -28,4 +28,5 @@ export {
   Select,
   SignUp,
   LogoutBtn,
+  LoadingComponent,
 };

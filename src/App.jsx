@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Header, Footer } from "./components/index";
+import { Header, Footer, LoadingComponent } from "./components/index";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
@@ -37,7 +37,17 @@ const App = () => {
         <Footer />
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-300 font-rubik">
+      <div className="w-full block">
+        <Header />
+        <main>
+          <LoadingComponent />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  );
 };
 
 export default App;
