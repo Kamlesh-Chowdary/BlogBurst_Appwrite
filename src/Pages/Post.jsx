@@ -23,7 +23,7 @@ export default function Post() {
         allPosts.map((post) => (slug === post.$id ? setPost(post) : null));
       else navigate("/");
     } else navigate("/");
-  }, [slug, navigate]);
+  }, [slug, navigate, allPosts]);
 
   const deletePost = () => {
     postService.deletePost(post.$id).then((status) => {
@@ -36,18 +36,20 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="py-8 max-w-5xl m-auto rounded-xl  mx-8">
-      <h1 className="text-xl text-gray-600 px-4">Author : {post.userName}</h1>
+    <div className="py-8 max-w-5xl m-auto rounded-xl    ">
+      <h1 className="text-xl sm:text-none text-center text-gray-600 pb-4">
+        <p className="font-bold inline"> Author </p>: {post.userName}
+      </h1>
       <Container>
-        <div className="w-full  flex justify-center mb-4 relative   p-2">
+        <div className="w-full text-center grid gap-3 sm:flex  mb-2 sm:relative   p-2">
           <img
             src={storageService.getFilePreview(post.featuredImage)}
             alt={post.title}
-            className="rounded-xl max-w-md m-auto"
+            className="rounded-xl max-wd-300 sm:max-w-md m-auto"
           />
 
           {isAuthor && (
-            <div className="absolute right-6 top-6">
+            <div className="text-center mt-2 sm:absolute sm:right-6 sm:top-6 ">
               <Link to={`/edit-post/${post.$id}`}>
                 <Button bgColor="bg-green-500" className="mr-3">
                   Edit
@@ -59,10 +61,10 @@ export default function Post() {
             </div>
           )}
         </div>
-        <div className="w-full mb-6">
+        <div className="w-full mb-6 ">
           <h1 className="text-2xl font-bold text-center">{post.title}</h1>
         </div>
-        <div className="browser-css">{parse(post.content)}</div>
+        <div className=" text-center browser-css">{parse(post.content)}</div>
       </Container>
     </div>
   ) : null;
