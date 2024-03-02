@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { LogoutBtn, Logo, Container } from "../index";
-
+import { Menu, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
-
+  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const navItems = [
     {
       name: "Home",
@@ -35,46 +35,21 @@ const Header = () => {
     },
   ];
 
-  const handleLayout = () => {
-    return (
-      <ul className="grid  ml-auto">
-        {navItems.map((item) =>
-          item.active ? (
-            <NavLink
-              key={item.name}
-              to={item.slug}
-              className={({ isActive }) =>
-                `${isActive ? "text-white hover:text-black" : "text-black "}`
-              }
-            >
-              <li className="sm:inline-block  px-6 py-2 duration-200 hover:bg-blue-100 rounded-full">
-                {item.name}
-              </li>
-            </NavLink>
-          ) : null
-        )}
-
-        {authStatus && (
-          <NavLink to={"/"}>
-            <li className="sm:block ">
-              <LogoutBtn />
-            </li>
-          </NavLink>
-        )}
-      </ul>
-    );
+  const toggleNavbar = () => {
+    setIsNavbarVisible(!isNavbarVisible);
   };
 
   return (
     <header className="py-3 shadow bg-gray-500 ">
       <Container>
-        <nav className="flex">
+        <nav className="flex justify-between">
           <div className="mr-4">
             <NavLink to="/">
               <Logo />
             </NavLink>
           </div>
-          <ul className="flex  ml-auto">
+
+          <ul className="hidden sm:flex ml-auto ">
             {navItems.map((item) =>
               item.active ? (
                 <NavLink
@@ -92,27 +67,50 @@ const Header = () => {
                 </NavLink>
               ) : null
             )}
-            <svg
-              className="sm:hidden size-10 "
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              onClick={handleLayout}
-            >
-              <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
-            </svg>
             {authStatus && (
               <NavLink to={"/"}>
-                <li className="sm:block hidden">
+                <li>
                   <LogoutBtn />
                 </li>
               </NavLink>
             )}
           </ul>
+          <div className="flex  justify-end sm:hidden">
+            <button onClick={toggleNavbar}>
+              {isNavbarVisible ? <X /> : <Menu />}
+            </button>
+          </div>
         </nav>
+        {isNavbarVisible && (
+          <ul className="flex justify-around mt-3">
+            {navItems.map((item) =>
+              item.active ? (
+                <NavLink
+                  key={item.name}
+                  to={item.slug}
+                  className={({ isActive }) =>
+                    `${
+                      isActive ? "text-white hover:text-black" : "text-black "
+                    }`
+                  }
+                >
+                  <li className="p-3 duration-200 hover:bg-blue-100 rounded-full">
+                    {item.name}
+                  </li>
+                </NavLink>
+              ) : null
+            )}
+            {authStatus && (
+              <NavLink to={"/"}>
+                <li>
+                  <LogoutBtn />
+                </li>
+              </NavLink>
+            )}
+          </ul>
+        )}
       </Container>
     </header>
   );
 };
-
 export default Header;
