@@ -50,10 +50,13 @@ BlogBurst is a blend of cutting-edge technologies:
 
 ## 🚦 Running the Project
 
-**Clone the Repository:** 🌀 git clone [https://github.com/srvjha/Blogify-Hub]
-**Navigate to the Project Directory:** 📂 cd [Your Project Directory]
-**Install Dependencies:** ⚙️ npm install
-**Run the Project:** ⚡️ npm run dev
+- **Clone the Repository:** 🌀 git clone [https://github.com/srvjha/Blogify-Hub]
+
+- **Navigate to the Project Directory:** 📂 cd [Your Project Directory]
+
+- **Install Dependencies:** ⚙️ npm install
+
+- **Run the Project:** ⚡️ npm run dev
 
 ## 🌐 Appwrite Integration
 
