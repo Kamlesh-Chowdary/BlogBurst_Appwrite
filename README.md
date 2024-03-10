@@ -50,7 +50,7 @@ BlogBurst is a blend of cutting-edge technologies:
 
 ## 🚦 Running the Project
 
-- **Clone the Repository:** 🌀 git clone [https://github.com/srvjha/Blogify-Hub]
+- **Clone the Repository:** 🌀 git clone [https://github.com/kamlesh-chowdary/BlogBurst]
 
 - **Navigate to the Project Directory:** 📂 cd [Your Project Directory]
 
