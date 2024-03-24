@@ -4,6 +4,10 @@
 
 BlogBurst is more than just a blog application; it's a dynamic space designed to bring your thoughts to life. Let's dive into what makes BlogBurst your go-to platform for crafting and sharing compelling stories.
 
+## 🚀 Live Demo
+
+Ready to experience the magic? Explore the live demo: [BlogBurst - Live Demo.](https://blog-burst-dusky.vercel.app/)
+
 ## 🌟 Key Features
 
 1. **Protected Layout 🛡️:**
@@ -50,7 +54,7 @@ BlogBurst is a blend of cutting-edge technologies:
 
 ## 🚦 Running the Project
 
-- **Clone the Repository:** 🌀 git clone [https://github.com/kamlesh-chowdary/BlogBurst]
+- **Clone the Repository:** 🌀 git clone [https://github.com/kamlesh-chowdary/BlogBurst_Appwrite]
 
 - **Navigate to the Project Directory:** 📂 cd [Your Project Directory]
 
@@ -62,6 +66,4 @@ BlogBurst is a blend of cutting-edge technologies:
 
 Appwrite serves as the backbone, streamlining backend operations and enhancing the security of user authentication and data storage. It simplifies the complexities involved in building a modern backend API, enabling developers to construct secure apps more efficiently.
 
-## 🚀 Live Demo
 
-Ready to experience the magic? Explore the live demo: [BlogBurst - Live Demo.](https://blog-burst-dusky.vercel.app/)
